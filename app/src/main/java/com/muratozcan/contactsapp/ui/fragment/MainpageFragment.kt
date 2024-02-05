@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.muratozcan.contactsapp.R
@@ -19,11 +20,9 @@ class MainpageFragment : Fragment() {
 
     private lateinit var binding: FragmentMainpageBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentMainpageBinding.inflate(inflater, container, false)
-
-        binding.toolbarMainpage.title = "Persons"
-
-        binding.rv.layoutManager = LinearLayoutManager(requireContext())
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_mainpage, container, false)
+        binding.mainpageFragment = this
+        binding.mainpageToolbarTitle = "Persons"
 
         val personsList = ArrayList<Persons>()
         val p1 = Persons(1,"Murat", "1111")
@@ -34,11 +33,7 @@ class MainpageFragment : Fragment() {
         personsList.add(p3)
 
         val personsAdapter = PersonAdapter(requireContext(), personsList)
-        binding.rv.adapter = personsAdapter
-
-        binding.fab.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.personRegisterPass)
-        }
+        binding.personsAdapter = personsAdapter
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
@@ -53,6 +48,10 @@ class MainpageFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    fun fabClick(it:View){
+        Navigation.findNavController(it).navigate(R.id.personRegisterPass)
     }
 
     fun search(searchedWord: String){

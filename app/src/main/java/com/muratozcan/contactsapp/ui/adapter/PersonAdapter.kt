@@ -4,9 +4,11 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.muratozcan.contactsapp.R
 import com.muratozcan.contactsapp.data.entity.Persons
 import com.muratozcan.contactsapp.databinding.CardDesignBinding
 import com.muratozcan.contactsapp.ui.fragment.MainpageFragmentDirections
@@ -16,7 +18,7 @@ class PersonAdapter(var mContext: Context, var personsList: List<Persons>) : Rec
     inner class CardDesignHolder(var design: CardDesignBinding) : RecyclerView.ViewHolder(design.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardDesignHolder {
-        val binding = CardDesignBinding.inflate(LayoutInflater.from(mContext), parent, false)
+        val binding:CardDesignBinding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.card_design, parent, false)
         return CardDesignHolder(binding)
     }
 
@@ -24,8 +26,7 @@ class PersonAdapter(var mContext: Context, var personsList: List<Persons>) : Rec
         val person = personsList[position]
         val d = holder.design
 
-        d.textViewPersonName.text = person.person_name
-        d.textViewPersonTel.text = person.person_tel
+        d.personObject = person
 
         d.cardViewLine.setOnClickListener{
             val pass = MainpageFragmentDirections.personDetailPass(person = person)
