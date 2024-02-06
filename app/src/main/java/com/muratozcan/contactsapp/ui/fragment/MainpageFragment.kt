@@ -8,41 +8,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.muratozcan.contactsapp.R
 import com.muratozcan.contactsapp.data.entity.Persons
 import com.muratozcan.contactsapp.databinding.FragmentMainpageBinding
 import com.muratozcan.contactsapp.ui.adapter.PersonAdapter
+import com.muratozcan.contactsapp.ui.viewmodel.MainpageViewModel
+import com.muratozcan.contactsapp.ui.viewmodel.PersonRegisterViewModel
 
 
 class MainpageFragment : Fragment() {
 
     private lateinit var binding: FragmentMainpageBinding
+    private lateinit var viewModel: MainpageViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_mainpage, container, false)
         binding.mainpageFragment = this
         binding.mainpageToolbarTitle = "Persons"
 
-        val personsList = ArrayList<Persons>()
-        val p1 = Persons(1,"Murat", "1111")
-        val p2 = Persons(2,"Elif", "2222")
-        val p3 = Persons(3,"Ahmet", "3333")
-        personsList.add(p1)
-        personsList.add(p2)
-        personsList.add(p3)
+        viewModel.personsList.observe(viewLifecycleOwner){
+            val personsAdapter = PersonAdapter(requireContext(), it, viewModel)
+            binding.personsAdapter = personsAdapter
+        }
 
-        val personsAdapter = PersonAdapter(requireContext(), personsList)
-        binding.personsAdapter = personsAdapter
+
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
-                search(newText)
+                viewModel.search(newText)
                 return true
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                search(query)
+                viewModel.search(query)
                 return true
             }
         })
@@ -50,11 +50,18 @@ class MainpageFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tempViewModel: MainpageViewModel by viewModels()
+        viewModel = tempViewModel
+    }
+
     fun fabClick(it:View){
         Navigation.findNavController(it).navigate(R.id.personRegisterPass)
     }
 
-    fun search(searchedWord: String){
-        Log.e("Person Search", searchedWord)
+    override fun onResume() {
+        super.onResume()
+        viewModel.personsLoad()
     }
 }

@@ -12,8 +12,9 @@ import com.muratozcan.contactsapp.R
 import com.muratozcan.contactsapp.data.entity.Persons
 import com.muratozcan.contactsapp.databinding.CardDesignBinding
 import com.muratozcan.contactsapp.ui.fragment.MainpageFragmentDirections
+import com.muratozcan.contactsapp.ui.viewmodel.MainpageViewModel
 
-class PersonAdapter(var mContext: Context, var personsList: List<Persons>) : RecyclerView.Adapter<PersonAdapter.CardDesignHolder>() {
+class PersonAdapter(var mContext: Context, var personsList: List<Persons>, var viewModel: MainpageViewModel) : RecyclerView.Adapter<PersonAdapter.CardDesignHolder>() {
 
     inner class CardDesignHolder(var design: CardDesignBinding) : RecyclerView.ViewHolder(design.root)
 
@@ -36,7 +37,7 @@ class PersonAdapter(var mContext: Context, var personsList: List<Persons>) : Rec
         d.imageViewClear.setOnClickListener {
             Snackbar.make(it, "Do you want to delete ${person.person_name} ?", Snackbar.LENGTH_SHORT)
                 .setAction("YES"){
-                    delete(person.person_id)
+                    viewModel.delete(person.person_id)
                 }
                 .show()
         }
@@ -44,10 +45,6 @@ class PersonAdapter(var mContext: Context, var personsList: List<Persons>) : Rec
 
     override fun getItemCount(): Int {
         return personsList.size
-    }
-
-    fun delete(person_id: Int){
-        Log.e("Person Delete", person_id.toString())
     }
 
 }
