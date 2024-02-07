@@ -13,6 +13,7 @@ import com.muratozcan.contactsapp.data.entity.Persons
 import com.muratozcan.contactsapp.databinding.CardDesignBinding
 import com.muratozcan.contactsapp.ui.fragment.MainpageFragmentDirections
 import com.muratozcan.contactsapp.ui.viewmodel.MainpageViewModel
+import com.muratozcan.contactsapp.util.pass
 
 class PersonAdapter(var mContext: Context, var personsList: List<Persons>, var viewModel: MainpageViewModel) : RecyclerView.Adapter<PersonAdapter.CardDesignHolder>() {
 
@@ -31,7 +32,7 @@ class PersonAdapter(var mContext: Context, var personsList: List<Persons>, var v
 
         d.cardViewLine.setOnClickListener{
             val pass = MainpageFragmentDirections.personDetailPass(person = person)
-            Navigation.findNavController(it).navigate(pass)
+            Navigation.pass(it, pass)
         }
 
         d.imageViewClear.setOnClickListener {

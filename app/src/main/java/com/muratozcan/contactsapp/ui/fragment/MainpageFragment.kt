@@ -17,6 +17,7 @@ import com.muratozcan.contactsapp.databinding.FragmentMainpageBinding
 import com.muratozcan.contactsapp.ui.adapter.PersonAdapter
 import com.muratozcan.contactsapp.ui.viewmodel.MainpageViewModel
 import com.muratozcan.contactsapp.ui.viewmodel.PersonRegisterViewModel
+import com.muratozcan.contactsapp.util.pass
 
 
 class MainpageFragment : Fragment() {
@@ -57,7 +58,7 @@ class MainpageFragment : Fragment() {
     }
 
     fun fabClick(it:View){
-        Navigation.findNavController(it).navigate(R.id.personRegisterPass)
+        Navigation.pass(it, R.id.personRegisterPass)
     }
 
     override fun onResume() {
