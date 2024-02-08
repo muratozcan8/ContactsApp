@@ -4,8 +4,7 @@ import android.util.Log
 import com.muratozcan.contactsapp.data.datasource.PersonsDataSource
 import com.muratozcan.contactsapp.data.entity.Persons
 
-class PersonsRepository {
-    var pds = PersonsDataSource()
+class PersonsRepository(var pds:PersonsDataSource) {
     suspend fun save(person_name:String, person_tel:String) = pds.save(person_name, person_tel)
     suspend fun update(person_id: Int, person_name: String, person_tel: String) = pds.update(person_id, person_name, person_tel)
     suspend fun delete(person_id: Int) = pds.delete(person_id)

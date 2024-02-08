@@ -13,7 +13,9 @@ import com.muratozcan.contactsapp.R
 import com.muratozcan.contactsapp.databinding.FragmentPersonDetailBinding
 import com.muratozcan.contactsapp.ui.viewmodel.PersonDetailViewModel
 import com.muratozcan.contactsapp.ui.viewmodel.PersonRegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PersonDetailFragment : Fragment() {
     private lateinit var binding: FragmentPersonDetailBinding
     private lateinit var viewModel: PersonDetailViewModel

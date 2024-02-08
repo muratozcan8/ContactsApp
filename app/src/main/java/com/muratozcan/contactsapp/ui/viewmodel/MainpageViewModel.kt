@@ -4,12 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muratozcan.contactsapp.data.entity.Persons
 import com.muratozcan.contactsapp.data.repo.PersonsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainpageViewModel : ViewModel() {
-    var prepo = PersonsRepository()
+@HiltViewModel
+class MainpageViewModel @Inject constructor(var prepo:PersonsRepository) : ViewModel() {
     var personsList = MutableLiveData<List<Persons>>()
 
     init {

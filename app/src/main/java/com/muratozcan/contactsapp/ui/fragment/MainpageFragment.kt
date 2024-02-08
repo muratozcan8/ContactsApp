@@ -18,8 +18,9 @@ import com.muratozcan.contactsapp.ui.adapter.PersonAdapter
 import com.muratozcan.contactsapp.ui.viewmodel.MainpageViewModel
 import com.muratozcan.contactsapp.ui.viewmodel.PersonRegisterViewModel
 import com.muratozcan.contactsapp.util.pass
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainpageFragment : Fragment() {
 
     private lateinit var binding: FragmentMainpageBinding
