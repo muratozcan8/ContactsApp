@@ -61,4 +61,9 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.46")
     kapt("com.google.dagger:hilt-android-compiler:2.46")
+
+    implementation("androidx.room:room-runtime:2.5.0-beta02")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.4.3")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
 }
